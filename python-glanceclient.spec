@@ -16,6 +16,7 @@ BuildRequires:    python-setuptools
 Requires:         python-argparse
 Requires:         python-httplib2
 Requires:         python-prettytable
+Requires:         python-warlock
 Requires:         python-keystoneclient
 
 Conflicts:        openstack-glance < 2012.2
@@ -49,6 +50,9 @@ rm -fr %{buildroot}%{python_sitelib}/tests
 %{python_sitelib}/*.egg-info
 
 %changelog
+* Fri Aug 10 2012 Dan Prince <dprince@redhat.com>
+- Add dependency on python-warlock.
+
 * Fri Aug 03 2012 Alan Pevec <apevec@redhat.com> 2012.2-0.3.f1
 - rename client script to avoid conflict with old glance client
 
