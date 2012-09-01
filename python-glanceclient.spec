@@ -33,6 +33,9 @@ glanceclient module), and a command-line script (glance). Each implements
 # avoid requiring prettytable 0.6.0 for now
 sed -e 's|^prettytable.*|prettytable|' -i tools/pip-requires
 
+# NOTE: https://bugs.launchpad.net/keystone/+bug/1044695
+sed -e 's|^python-keystoneclient.*|python-keystoneclient>=0.1.1|' -i tools/pip-requires
+
 %build
 %{__python} setup.py build
 
@@ -55,6 +58,7 @@ rm -fr %{buildroot}%{python_sitelib}/tests
 %changelog
 * Sat Sep 1 2012 Dan Prince <dprince@redhat.com>
 - avoid requiring prettytable 0.6.0 for now
+- work around for missing python-keystoneclient git tag 0.1.2
 
 * Fri Aug 10 2012 Dan Prince <dprince@redhat.com>
 - Add dependency on python-warlock.
