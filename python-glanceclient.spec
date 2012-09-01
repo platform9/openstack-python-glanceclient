@@ -30,6 +30,9 @@ glanceclient module), and a command-line script (glance). Each implements
 %setup -q
 %patch0 -p1
 
+# avoid requiring prettytable 0.6.0 for now
+sed -e 's|^prettytable.*|prettytable|' -i tools/pip-requires
+
 %build
 %{__python} setup.py build
 
@@ -50,6 +53,9 @@ rm -fr %{buildroot}%{python_sitelib}/tests
 %{python_sitelib}/*.egg-info
 
 %changelog
+* Sat Sep 1 2012 Dan Prince <dprince@redhat.com>
+- avoid requiring prettytable 0.6.0 for now
+
 * Fri Aug 10 2012 Dan Prince <dprince@redhat.com>
 - Add dependency on python-warlock.
 
