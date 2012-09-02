@@ -35,10 +35,10 @@ sed -e 's|^prettytable.*|prettytable|' -i tools/pip-requires
 
 # NOTE: This works around an issue where the version of python-keystoneclient
 # in master generates a version number 0.1.1. Not sure why yet:
-# [dprince@dovetail python-keystoneclient]$ git describe
-# 0.1.1-24-g0a8c960
-# [dprince@dovetail python-keystoneclient]$ date
-# Sun Sep  2 07:33:58 EDT 2012
+# [dprince@dovetail python-keystoneclient]$ git describe --tags
+#  0.1.1-24-g0a8c960
+# [dprince@dovetail python-keystoneclient]$ git tag | grep 0.1.2
+#  0.1.2
 # NOTE: Initially I thought we were missing a tag or something but that
 # appears not to be the case.
 sed -e 's|^python-keystoneclient.*|python-keystoneclient>=0.1.1|' -i tools/pip-requires
