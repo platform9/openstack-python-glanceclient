@@ -41,6 +41,7 @@ rm -rf python_glanceclient.egg-info
 
 %install
 %{__python} setup.py install -O1 --skip-build --root %{buildroot}
+mv %{buildroot}/usr/glanceclient/versioninfo %{buildroot}%{python_sitelib}/glanceclient/versioninfo
 
 # Delete tests
 rm -fr %{buildroot}%{python_sitelib}/tests
@@ -50,9 +51,13 @@ rm -fr %{buildroot}%{python_sitelib}/tests
 %doc LICENSE
 %{_bindir}/glance
 %{python_sitelib}/glanceclient
+%{python_sitelib}/glanceclient/versioninfo
 %{python_sitelib}/*.egg-info
 
 %changelog
+* Mon Nov 19 2012 Dan Prince <dprince@redhat.com> 1:0.5.30-1
+- Add versioninfo file to package.
+
 * Wed Aug 22 2012 Alan Pevec <apevec@redhat.com> 1:0.4.1-1
 - Add dependency on python-setuptools (#850844)
 - Revert client script rename, old glance client is now deprecated.
