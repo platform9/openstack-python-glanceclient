@@ -51,7 +51,6 @@ rm -fr %{buildroot}%{python_sitelib}/tests
 %doc LICENSE
 %{_bindir}/glance
 %{python_sitelib}/glanceclient
-%{python_sitelib}/glanceclient/versioninfo
 %{python_sitelib}/*.egg-info
 
 %changelog
