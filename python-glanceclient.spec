@@ -2,23 +2,28 @@ Name:             python-glanceclient
 # Since folsom-2 OpenStack clients follow their own release plan
 # and restarted version numbering from 0.1.1
 # https://lists.launchpad.net/openstack/msg14248.html
-#python-glanceclient-0.5.1.2.902bff7-0.1.159.902bff7_992e992.src.rpm
 Epoch:            1
-Version:          2012.2
-Release:          0.3.f1%
+Version:          0.6.0
+Release:          1%{?dist}
 Summary:          Python API and CLI for OpenStack Glance
 
 Group:            Development/Languages
 License:          ASL 2.0
 URL:              http://github.com/openstack/python-glanceclient
-Source0:          http://launchpad.net/glance/folsom/folsom-1/+download/python-glanceclient-2012.2~f1.tar.gz
+#Source0:          https://launchpad.net/%{name}/trunk/%{version}/+download/%{name}-%{version}.tar.gz
+Source0:          http://tarballs.openstack.org/%{name}/%{name}-%{version}.tar.gz
+
+#
+# patches_base=0.6.0
+#
+Patch0001: 0001-Hook-up-region_name-argument.patch
+Patch0002: 0002-adjust-egg-info-for-Fedora.patch
 
 BuildArch:        noarch
 BuildRequires:    python-setuptools
-BuildRequires:    python-setuptools_git
 
 Requires:         python-httplib2
-Requires:         python-keystoneclient
+Requires:         python-keystoneclient >= 1:0.1.2
 Requires:         python-prettytable
 Requires:         python-setuptools
 Requires:         python-warlock
@@ -31,17 +36,19 @@ glanceclient module), and a command-line script (glance). Each implements
 %prep
 %setup -q
 
-sed -e 's|^prettytable.*|prettytable|' -i tools/pip-requires
 
 # Remove bundled egg-info
 rm -rf python_glanceclient.egg-info
+sed -i '/setuptools-git/d' setup.py
 
 %build
 %{__python} setup.py build
 
 %install
 %{__python} setup.py install -O1 --skip-build --root %{buildroot}
-mv %{buildroot}/usr/glanceclient/versioninfo %{buildroot}%{python_sitelib}/glanceclient/versioninfo
+
+# move versioninfo https://review.openstack.org/15962
+mv %{buildroot}/usr/glanceclient/versioninfo %{buildroot}%{python_sitelib}/glanceclient/
 
 # Delete tests
 rm -fr %{buildroot}%{python_sitelib}/tests
@@ -54,8 +61,11 @@ rm -fr %{buildroot}%{python_sitelib}/tests
 %{python_sitelib}/*.egg-info
 
 %changelog
-* Mon Nov 19 2012 Dan Prince <dprince@redhat.com> 1:0.5.30-1
-- Add versioninfo file to package.
+* Fri Nov 23 2012 Alan Pevec <apevec@redhat.com> 1:0.6.0-1
+- Update to 0.6.0
+
+* Sat Sep 15 2012 Alan Pevec <apevec@redhat.com> 1:0.5.1-1
+- Update to 0.5.1
 
 * Wed Aug 22 2012 Alan Pevec <apevec@redhat.com> 1:0.4.1-1
 - Add dependency on python-setuptools (#850844)
