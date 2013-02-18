@@ -43,9 +43,6 @@ sed -i '/setup_requires/d; /install_requires/d; /dependency_links/d' setup.py
 %install
 %{__python} setup.py install -O1 --skip-build --root %{buildroot}
 
-# move versioninfo https://review.openstack.org/15962
-mv %{buildroot}/usr/glanceclient/versioninfo %{buildroot}%{python_sitelib}/glanceclient/
-
 # Delete tests
 rm -fr %{buildroot}%{python_sitelib}/tests
 
@@ -57,6 +54,9 @@ rm -fr %{buildroot}%{python_sitelib}/tests
 %{python_sitelib}/*.egg-info
 
 %changelog
+* Mon Feb 18 2013 Dan Prince <dprince@redhat.com> 1:0.7.0-2
+- Remove versioninfo move command from spec.
+
 * Wed Jan 30 2013 Alan Pevec <apevec@redhat.com> 1:0.7.0-1
 - Update to 0.7.0
 
