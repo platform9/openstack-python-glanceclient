@@ -40,8 +40,8 @@ glanceclient module), and a command-line script (glance). Each implements
 
 #%patch0001 -p1
 #%patch0002 -p1
-%patch0003 -p1
-%patch0004 -p1
+#%patch0003 -p1
+#%patch0004 -p1
 
 # Remove bundled egg-info
 rm -rf python_glanceclient.egg-info
