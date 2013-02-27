@@ -38,8 +38,8 @@ glanceclient module), and a command-line script (glance). Each implements
 %prep
 %setup -q
 
-%patch0001 -p1
-%patch0002 -p1
+#%patch0001 -p1
+#%patch0002 -p1
 %patch0003 -p1
 %patch0004 -p1
 
