@@ -28,7 +28,7 @@ Requires:         python-httplib2
 Requires:         python-keystoneclient >= 1:0.1.2
 Requires:         python-prettytable
 Requires:         python-setuptools
-Requires:         python-warlock
+Requires:         python-warlock >= 0.7 
 
 %description
 This is a client for the OpenStack Glance API. There's a Python API (the
