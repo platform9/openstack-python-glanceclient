@@ -18,12 +18,15 @@ Source0:          http://pypi.python.org/packages/source/p/%{name}/%{name}-%{ver
 
 BuildArch:        noarch
 BuildRequires:    python-setuptools
+BuildRequires:    python-pbr
+BuildRequires:    python-d2to1
 
 Requires:         python-httplib2
 Requires:         python-keystoneclient >= 1:0.1.2
 Requires:         python-prettytable
 Requires:         python-setuptools
 Requires:         python-warlock
+Requires:         python-pbr
 
 %description
 This is a client for the OpenStack Glance API. There's a Python API (the
@@ -34,8 +37,8 @@ glanceclient module), and a command-line script (glance). Each implements
 %setup -q
 # Remove bundled egg-info
 rm -rf python_glanceclient.egg-info
-# let RPM handle deps
-sed -i '/setup_requires/d; /install_requires/d; /dependency_links/d' setup.py
+# Nuke requirements from pip-requires (which requires specific versions, etc)
+echo "" > tools/pip-requires
 
 %build
 %{__python} setup.py build
@@ -54,6 +57,9 @@ rm -fr %{buildroot}%{python_sitelib}/tests
 %{python_sitelib}/*.egg-info
 
 %changelog
+* Thu May 23 2013 Dan Prince <dprince@redhat.com> 1:0.7.0-2
+- Updates to use pbr.
+
 * Mon Feb 18 2013 Dan Prince <dprince@redhat.com> 1:0.7.0-2
 - Remove versioninfo move command from spec.
 
