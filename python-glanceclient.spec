@@ -27,6 +27,7 @@ Requires:         python-prettytable
 Requires:         python-setuptools
 Requires:         python-warlock
 Requires:         python-pbr
+Requires:         python-d2to1
 
 %description
 This is a client for the OpenStack Glance API. There's a Python API (the
@@ -57,6 +58,9 @@ rm -fr %{buildroot}%{python_sitelib}/tests
 %{python_sitelib}/*.egg-info
 
 %changelog
+* Wed May 29 2013 Dan Prince <dprince@redhat.com> 1:0.7.0-2
+- Add missing dep on d2to1.
+
 * Thu May 23 2013 Dan Prince <dprince@redhat.com> 1:0.7.0-2
 - Updates to use pbr.
 
