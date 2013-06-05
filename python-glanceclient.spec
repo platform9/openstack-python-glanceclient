@@ -38,8 +38,8 @@ glanceclient module), and a command-line script (glance). Each implements
 %setup -q
 # Remove bundled egg-info
 rm -rf python_glanceclient.egg-info
-# Nuke requirements from pip-requires (which requires specific versions, etc)
-echo "" > tools/pip-requires
+# Nuke requirements (which requires specific versions, etc)
+echo "" > requirements.txt
 
 %build
 %{__python} setup.py build
@@ -58,6 +58,9 @@ rm -fr %{buildroot}%{python_sitelib}/tests
 %{python_sitelib}/*.egg-info
 
 %changelog
+* Wed Jun 5 2013 Dan Prince <dprince@redhat.com> 1:0.7.0-2
+- Updated to use requirements.txt.
+
 * Wed May 29 2013 Dan Prince <dprince@redhat.com> 1:0.7.0-2
 - Add missing dep on d2to1.
 
