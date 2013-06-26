@@ -13,22 +13,18 @@ URL:              http://github.com/openstack/python-glanceclient
 #Source0:          https://launchpad.net/%{name}/trunk/%{version}/+download/%{name}-%{version}.tar.gz
 Source0:          http://tarballs.openstack.org/%{name}/%{name}-%{version}.tar.gz
 
-#
-# patches_base=0.5.1
-#
-Patch0001: 0001-Make-ConnectionRefused-error-more-informative.patch
-Patch0002: 0002-Fix-weird-None-displayed-on-some-errors.patch
-Patch0003: 0003-Typo-in-image-create-help-page.patch
-Patch0004: 0004-adjust-egg-info-for-Fedora.patch
-
 BuildArch:        noarch
 BuildRequires:    python-setuptools
+BuildRequires:    python-pbr
+BuildRequires:    python-d2to1
 
 Requires:         python-httplib2
 Requires:         python-keystoneclient >= 1:0.1.2
 Requires:         python-prettytable
 Requires:         python-setuptools
 Requires:         python-warlock >= 0.7 
+Requires:         python-pbr
+Requires:         python-d2to1
 
 %description
 This is a client for the OpenStack Glance API. There's a Python API (the
@@ -38,14 +34,11 @@ glanceclient module), and a command-line script (glance). Each implements
 %prep
 %setup -q
 
-#%patch0001 -p1
-#%patch0002 -p1
-#%patch0003 -p1
-#%patch0004 -p1
-
 # Remove bundled egg-info
 rm -rf python_glanceclient.egg-info
-sed -i '/setuptools-git/d' setup.py
+
+# Nuke requirements (which requires specific versions, etc)
+echo "" > requirements.txt
 
 %build
 %{__python} setup.py build
@@ -64,6 +57,10 @@ rm -fr %{buildroot}%{python_sitelib}/tests
 %{python_sitelib}/*.egg-info
 
 %changelog
+* Wed Jun 26 2013 Dan Prince <dprince@redhat.com> 1:0.5.1-1
+- Updates to use pbr.
+- Nuke requirements.txt.
+
 * Sat Sep 15 2012 Alan Pevec <apevec@redhat.com> 1:0.5.1-1
 - Update to 0.5.1
 
